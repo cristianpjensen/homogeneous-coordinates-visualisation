@@ -1,6 +1,6 @@
-# Homogeneous coordinates visualization
+# Homogeneous coordinates visualisation
 
-Three-dimensional visualization of translation, rotation, affine, and projective transformations in homogeneous coordinates. 
+Three-dimensional visualisation of translation, rotation, affine, and projective transformations in homogeneous coordinates. 
 
 ## License
 
