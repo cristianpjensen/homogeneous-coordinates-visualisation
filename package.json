@@ -6,10 +6,12 @@
     "@react-spring/three": "^9.4.4",
     "@react-three/drei": "^9.5.7",
     "@react-three/fiber": "^8.0.12",
-    "three": "^0.139.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-scripts": "5.0.1"
+    "react-draggable": "^4.4.5",
+    "react-scripts": "5.0.1",
+    "three": "^0.139.2",
+    "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
