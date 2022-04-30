@@ -2,8 +2,7 @@ import { Suspense } from "react";
 import * as THREE from "three";
 import { useLoader } from "@react-three/fiber";
 
-import img from "../../assets/colortrui.png";
-import { useStore } from "../../store";
+import img from "../../assets/flyeronground.png";
 
 interface ImagePlaneProps {
   // Corners of the image in three-dimensional space. The corners are in the
@@ -13,28 +12,12 @@ interface ImagePlaneProps {
 }
 
 export const ImagePlane = ({ corners, opacity }: ImagePlaneProps) => {
-  const applyMatrix = useStore((state) => state.applyMatrix);
-
   const planeGeometry = new THREE.PlaneBufferGeometry().setFromPoints(corners);
   const texture = useLoader(THREE.TextureLoader, img);
 
-  const onClick = () => {
-    const matrix = new THREE.Matrix3();
-
-    // prettier-ignore
-    // Random projective matrix.
-    matrix.set(
-      1, 1, 1,
-      -1, 1, 2,
-      1, 1, 1
-    );
-
-    applyMatrix(matrix);
-  };
-
   return (
     <Suspense fallback={null}>
-      <mesh geometry={planeGeometry} onClick={onClick}>
+      <mesh geometry={planeGeometry}>
         <meshBasicMaterial
           attach="material"
           map={texture}

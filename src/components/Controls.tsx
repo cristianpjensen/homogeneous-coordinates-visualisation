@@ -1,19 +1,34 @@
-import React, { useState } from "react";
+import * as THREE from "three";
+import React, { useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import LineTo from "react-lineto";
 
-import img from "../assets/colortrui.png";
+import img from "../assets/flyeronground.png";
+import { useStore } from "../store";
 
 type Coord = [number, number];
 const COLORS = ["red", "green", "blue", "yellow"];
 
 export const Controls = () => {
+  const applyProjectionMatrix = useStore(
+    (state) => state.applyProjectiveMatrix
+  );
+
   const [points, setPoints] = useState<[Coord, Coord, Coord, Coord]>([
     [1, 1],
     [0, 1],
     [1, 0],
     [0, 0],
   ]);
+
+  useEffect(() => {
+    const x1 = new THREE.Vector2(points[0][0], points[0][1]);
+    const x2 = new THREE.Vector2(points[1][0], points[1][1]);
+    const x3 = new THREE.Vector2(points[2][0], points[2][1]);
+    const x4 = new THREE.Vector2(points[3][0], points[3][1]);
+
+    applyProjectionMatrix(x1, x2, x3, x4)
+  }, [points]);
 
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
@@ -111,9 +126,12 @@ const Point = ({ className, setPoints, index, width, height }: PointProps) => {
       x += width;
     }
 
-    if (index === 0 || index === 1) {
+    if (index === 2 || index === 3) {
       y += height;
     }
+
+    // Make the Y coordinate go up instead of down.
+    y = Math.max(0, height-y)
 
     setPoint(x / width, y / height);
   };
@@ -122,13 +140,13 @@ const Point = ({ className, setPoints, index, width, height }: PointProps) => {
     <Draggable
       positionOffset={{
         x: index === 1 || index === 3 ? 0 : width,
-        y: index === 2 || index === 3 ? 0 : height,
+        y: index === 0 || index === 1 ? 0 : height,
       }}
       bounds={{
         left: index === 1 || index === 3 ? 0 : -width,
         right: index === 1 || index === 3 ? width : 0,
-        top: index === 2 || index === 3 ? 0 : -height,
-        bottom: index === 2 || index === 3 ? height : 0,
+        top: index === 0 || index === 1 ? 0 : -height,
+        bottom: index === 0 || index === 1 ? height : 0,
       }}
       onDrag={onDrag}
       onStop={onDrag}
