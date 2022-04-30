@@ -9,3 +9,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.hoverable:hover {
+  cursor: grab;
+}
+
+.hoverable:active {
+  cursor: grabbing;
+}

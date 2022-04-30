@@ -15,10 +15,10 @@ export const Controls = () => {
   );
 
   const [points, setPoints] = useState<[Coord, Coord, Coord, Coord]>([
-    [1, 1],
-    [0, 1],
     [1, 0],
     [0, 0],
+    [1, 1],
+    [0, 1],
   ]);
 
   useEffect(() => {
@@ -27,8 +27,8 @@ export const Controls = () => {
     const x3 = new THREE.Vector2(points[2][0], points[2][1]);
     const x4 = new THREE.Vector2(points[3][0], points[3][1]);
 
-    applyProjectionMatrix(x1, x2, x3, x4)
-  }, [points]);
+    applyProjectionMatrix(x1, x2, x3, x4);
+  });
 
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
@@ -55,9 +55,14 @@ export const Controls = () => {
         }}
       >
         <img
+          id="image"
           src={img}
           onLoad={onLoad}
-          style={{ width: 200, pointerEvents: "none", userSelect: "none" }}
+          style={{
+            width: 200,
+            pointerEvents: "none",
+            userSelect: "none",
+          }}
           onDragStart={() => false}
           draggable={false}
           alt="colortrui"
@@ -65,28 +70,28 @@ export const Controls = () => {
 
         <div style={{ position: "absolute", top: -8, left: -8 }}>
           <Point
-            className="A"
+            className="A hoverable"
             setPoints={setPoints}
             index={0}
             width={width}
             height={height}
           />
           <Point
-            className="B"
+            className="B hoverable"
             setPoints={setPoints}
             index={1}
             width={width}
             height={height}
           />
           <Point
-            className="C"
+            className="C hoverable"
             setPoints={setPoints}
             index={2}
             width={width}
             height={height}
           />
           <Point
-            className="D"
+            className="D hoverable"
             setPoints={setPoints}
             index={3}
             width={width}
@@ -122,31 +127,28 @@ const Point = ({ className, setPoints, index, width, height }: PointProps) => {
   };
 
   const onDrag = (_: unknown, { x, y }: { x: number; y: number }) => {
-    if (index === 0 || index === 2) {
+    if (index === 3 || index === 2) {
       x += width;
     }
 
-    if (index === 2 || index === 3) {
+    if (index === 2 || index === 0) {
       y += height;
     }
 
-    // Make the Y coordinate go up instead of down.
-    y = Math.max(0, height-y)
-
-    setPoint(x / width, y / height);
+    setPoint(y / height, x / width);
   };
 
   return (
     <Draggable
       positionOffset={{
-        x: index === 1 || index === 3 ? 0 : width,
-        y: index === 0 || index === 1 ? 0 : height,
+        x: index === 1 || index === 0 ? 0 : width,
+        y: index === 3 || index === 1 ? 0 : height,
       }}
       bounds={{
-        left: index === 1 || index === 3 ? 0 : -width,
-        right: index === 1 || index === 3 ? width : 0,
-        top: index === 0 || index === 1 ? 0 : -height,
-        bottom: index === 0 || index === 1 ? height : 0,
+        left: index === 1 || index === 0 ? 0 : -width,
+        right: index === 1 || index === 0 ? width : 0,
+        top: index === 3 || index === 1 ? 0 : -height,
+        bottom: index === 3 || index === 1 ? height : 0,
       }}
       onDrag={onDrag}
       onStop={onDrag}

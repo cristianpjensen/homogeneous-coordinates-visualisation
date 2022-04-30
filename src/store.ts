@@ -4,15 +4,18 @@ import { Matrix, SingularValueDecomposition } from "ml-matrix";
 
 type Corners = [THREE.Vector3, THREE.Vector3, THREE.Vector3, THREE.Vector3];
 
+const SIZE = 400;
+
 export const cornersInit: Corners = [
-  new THREE.Vector3(5, 5, 1),
-  new THREE.Vector3(0, 5, 1),
-  new THREE.Vector3(5, 0, 1),
+  new THREE.Vector3(SIZE, SIZE, 1),
+  new THREE.Vector3(0, SIZE, 1),
+  new THREE.Vector3(SIZE, 0, 1),
   new THREE.Vector3(0, 0, 1),
 ];
 
 interface Store {
   corners: Corners;
+  matrix: THREE.Matrix3;
   applyMatrix: (matrix: THREE.Matrix3) => void;
   applyProjectiveMatrix: (
     x1: THREE.Vector2,
@@ -24,6 +27,7 @@ interface Store {
 
 export const useStore = create<Store>((set, get) => ({
   corners: cornersInit,
+  matrix: new THREE.Matrix3(),
   applyMatrix: (matrix) => {
     const c = cornersInit.map((corner) => {
       const corner_ = corner.clone();
@@ -33,10 +37,10 @@ export const useStore = create<Store>((set, get) => ({
     set({ corners: [c[0], c[1], c[2], c[3]] });
   },
   applyProjectiveMatrix: (x1, x2, x3, x4) => {
-    x1.multiplyScalar(5);
-    x2.multiplyScalar(5);
-    x3.multiplyScalar(5);
-    x4.multiplyScalar(5);
+    x1.multiplyScalar(SIZE);
+    x2.multiplyScalar(SIZE);
+    x3.multiplyScalar(SIZE);
+    x4.multiplyScalar(SIZE);
 
     const [xa1, xa2, xa3, xa4] = cornersInit;
 
@@ -56,15 +60,13 @@ export const useStore = create<Store>((set, get) => ({
 
     const P = new THREE.Matrix3();
     P.set(p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8]);
-    P.multiplyScalar(-1);
+    P.multiplyScalar(-5 / 2.887);
 
     const c = cornersInit.map((corner) => {
       const corner_ = corner.clone();
       return corner_.applyMatrix3(P);
     });
 
-    console.log(P);
-
-    set({ corners: [c[0], c[1], c[2], c[3]] });
+    set({ corners: [c[0], c[1], c[2], c[3]], matrix: P });
   },
 }));
