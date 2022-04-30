@@ -14,7 +14,7 @@ export const ThreeWorld = () => {
       corner.x * (20 / 400),
       corner.y * (20 / 400),
       corner.z
-    ).multiplyScalar(1 / -0.004329713479095229)
+    ).multiplyScalar(-1 / 0.004329713479095229)
   );
 
   const proj = c.map((corner) => {
@@ -59,10 +59,8 @@ export const ThreeWorld = () => {
         rotation={[Math.PI / 2, 0, 0]}
       />
       <OrbitControls />
-      {/* <ImagePlane corners={cornersInit} opacity={0.1} /> */}
       <Projection matrix={matrix} />
       <ImagePlane corners={[c[0], c[1], c[2], c[3]]} opacity={0.5} />
-      {/* <ImagePlane corners={[proj[0], proj[1], proj[2], proj[3]]} opacity={1} /> */}
       {lines.map((line, i) => {
         return (
           <Line

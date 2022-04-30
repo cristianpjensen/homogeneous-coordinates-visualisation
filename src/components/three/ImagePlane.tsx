@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import * as THREE from "three";
 import { useLoader } from "@react-three/fiber";
 
-import img from "../../assets/flyeronground.png";
+import img from "../../assets/colortrui.png";
 
 interface ImagePlaneProps {
   // Corners of the image in three-dimensional space. The corners are in the
@@ -14,6 +14,8 @@ interface ImagePlaneProps {
 export const ImagePlane = ({ corners, opacity }: ImagePlaneProps) => {
   const planeGeometry = new THREE.PlaneBufferGeometry().setFromPoints(corners);
   const texture = useLoader(THREE.TextureLoader, img);
+  texture.center = new THREE.Vector2(0.5, 0.5);
+  texture.rotation = Math.PI;
 
   return (
     <Suspense fallback={null}>

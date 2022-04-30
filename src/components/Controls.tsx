@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import LineTo from "react-lineto";
 
-import img from "../assets/flyeronground.png";
+import img from "../assets/colortrui.png";
 import { useStore } from "../store";
 
 type Coord = [number, number];
@@ -49,23 +49,18 @@ export const Controls = () => {
         marginBottom: 16,
       }}
     >
-      <div
-        style={{
-          position: "relative",
-        }}
-      >
+      <div className="scalehover" style={{ position: "relative" }}>
         <img
           id="image"
           src={img}
           onLoad={onLoad}
           style={{
-            width: 200,
+            width: 400,
             pointerEvents: "none",
             userSelect: "none",
           }}
           onDragStart={() => false}
           draggable={false}
-          alt="colortrui"
         />
 
         <div style={{ position: "absolute", top: -8, left: -8 }}>
@@ -160,7 +155,6 @@ const Point = ({ className, setPoints, index, width, height }: PointProps) => {
           height: 16,
           backgroundColor: COLORS[index],
           borderRadius: "50%",
-          opacity: 0.6,
           position: "absolute",
           zIndex: 1,
         }}

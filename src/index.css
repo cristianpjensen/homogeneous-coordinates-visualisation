@@ -16,4 +16,5 @@ body {
 
 .hoverable:active {
   cursor: grabbing;
+  border: 1px solid #fff;
 }
