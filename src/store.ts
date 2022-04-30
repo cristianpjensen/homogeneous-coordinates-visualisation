@@ -23,6 +23,8 @@ interface Store {
     x3: THREE.Vector2,
     x4: THREE.Vector2
   ) => void;
+  showHomogeneous: boolean;
+  flipShowHomogeneous: () => void;
 }
 
 export const useStore = create<Store>((set, get) => ({
@@ -68,5 +70,10 @@ export const useStore = create<Store>((set, get) => ({
     });
 
     set({ corners: [c[0], c[1], c[2], c[3]], matrix: P });
+  },
+  showHomogeneous: true,
+  flipShowHomogeneous: () => {
+    const showHomogeneous = get().showHomogeneous;
+    set({ showHomogeneous: !showHomogeneous });
   },
 }));

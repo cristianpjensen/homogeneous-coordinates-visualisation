@@ -7,7 +7,7 @@ import { useStore } from "../store";
 import { Projection } from "./three/Projection";
 
 export const ThreeWorld = () => {
-  const { corners, matrix } = useStore((state) => state);
+  const { corners, matrix, showHomogeneous } = useStore((state) => state);
 
   const c = corners.map((corner) =>
     new THREE.Vector3(
@@ -60,14 +60,17 @@ export const ThreeWorld = () => {
       />
       <OrbitControls />
       <Projection matrix={matrix} />
-      <ImagePlane corners={[c[0], c[1], c[2], c[3]]} opacity={0.5} />
+      <ImagePlane
+        corners={[c[0], c[1], c[2], c[3]]}
+        opacity={showHomogeneous ? 0.4 : 0}
+      />
       {lines.map((line, i) => {
         return (
           <Line
             key={i}
             points={line}
             color="white"
-            opacity={0.4}
+            opacity={showHomogeneous ? 0.4 : 0}
             transparent
             dashed
           />

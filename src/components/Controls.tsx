@@ -14,6 +14,9 @@ export const Controls = () => {
     (state) => state.applyProjectiveMatrix
   );
 
+  const flipShowHomogeneous = useStore((state) => state.flipShowHomogeneous);
+  const showHomogeneous = useStore((state) => state.showHomogeneous);
+
   const [points, setPoints] = useState<[Coord, Coord, Coord, Coord]>([
     [1, 0],
     [0, 0],
@@ -41,62 +44,106 @@ export const Controls = () => {
   return (
     <div
       style={{
-        position: "absolute",
-        bottom: 0,
-        display: "flex",
-        justifyContent: "center",
         width: "100%",
+        bottom: 0,
         marginBottom: 16,
+        display: "flex",
+        position: "absolute",
+        justifyContent: "center",
       }}
     >
-      <div className="scalehover" style={{ position: "relative" }}>
-        <img
-          id="image"
-          src={img}
-          onLoad={onLoad}
+      <div>
+        <div
           style={{
-            width: 400,
-            pointerEvents: "none",
-            userSelect: "none",
+            backgroundColor: "black",
+            borderColor: "gray",
+            borderWidth: 2,
+            borderRadius: 16,
+            borderStyle: "solid",
+            padding: 24,
           }}
-          onDragStart={() => false}
-          draggable={false}
-        />
+        >
+          <div className="scalehover" style={{ position: "relative" }}>
+            <img
+              id="image"
+              alt="Part of this will be transformed"
+              src={img}
+              onLoad={onLoad}
+              style={{
+                width: 320,
+                pointerEvents: "none",
+                userSelect: "none",
+              }}
+              onDragStart={() => false}
+              draggable={false}
+            />
 
-        <div style={{ position: "absolute", top: -8, left: -8 }}>
-          <Point
-            className="A hoverable"
-            setPoints={setPoints}
-            index={0}
-            width={width}
-            height={height}
-          />
-          <Point
-            className="B hoverable"
-            setPoints={setPoints}
-            index={1}
-            width={width}
-            height={height}
-          />
-          <Point
-            className="C hoverable"
-            setPoints={setPoints}
-            index={2}
-            width={width}
-            height={height}
-          />
-          <Point
-            className="D hoverable"
-            setPoints={setPoints}
-            index={3}
-            width={width}
-            height={height}
-          />
+            <div style={{ position: "absolute", top: -8, left: -8 }}>
+              <Point
+                className="A hoverable"
+                setPoints={setPoints}
+                index={0}
+                width={width}
+                height={height}
+              />
+              <Point
+                className="B hoverable"
+                setPoints={setPoints}
+                index={1}
+                width={width}
+                height={height}
+              />
+              <Point
+                className="C hoverable"
+                setPoints={setPoints}
+                index={2}
+                width={width}
+                height={height}
+              />
+              <Point
+                className="D hoverable"
+                setPoints={setPoints}
+                index={3}
+                width={width}
+                height={height}
+              />
 
-          <LineTo from="D" to="C" borderColor="white" zIndex={0} />
-          <LineTo from="C" to="A" borderColor="white" zIndex={0} />
-          <LineTo from="A" to="B" borderColor="white" zIndex={0} />
-          <LineTo from="B" to="D" borderColor="white" zIndex={0} />
+              <LineTo from="D" to="C" borderColor="white" zIndex={0} />
+              <LineTo from="C" to="A" borderColor="white" zIndex={0} />
+              <LineTo from="A" to="B" borderColor="white" zIndex={0} />
+              <LineTo from="B" to="D" borderColor="white" zIndex={0} />
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            backgroundColor: "black",
+            borderColor: "gray",
+            borderWidth: 2,
+            borderRadius: 16,
+            borderStyle: "solid",
+            transition: "0.2s",
+            marginTop: 8,
+            opacity: showHomogeneous ? 1 : 0.4,
+          }}
+        >
+          <button
+            style={{
+              backgroundColor: "black",
+              border: "none",
+              color: "white",
+              textAlign: "center",
+              width: "100%",
+              height: "100%",
+              paddingTop: 16,
+              paddingBottom: 16,
+              background: "transparent",
+            }}
+            onClick={() => flipShowHomogeneous()}
+          >
+            Show homogeneous space
+          </button>
         </div>
       </div>
     </div>

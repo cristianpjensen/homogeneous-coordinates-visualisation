@@ -58,9 +58,9 @@ export const Projection = ({ matrix }: ProjectionProps) => {
             const i = (Fx * F.width + Fy) * 4;
             const j = (x * G.width + y) * 4;
 
-            G.data[j + 0] = F.data[i + 0];
-            G.data[j + 1] = F.data[i + 1];
-            G.data[j + 2] = F.data[i + 2];
+            G.data[j + 0] = F.data[i + 0] * 0.35;
+            G.data[j + 1] = F.data[i + 1] * 0.35;
+            G.data[j + 2] = F.data[i + 2] * 0.35;
             G.data[j + 3] = F.data[i + 3];
           }
         }
@@ -78,7 +78,7 @@ export const Projection = ({ matrix }: ProjectionProps) => {
         ref.current.material = material;
       }
     }
-  }, [matrix]);
+  }, [matrix, F]);
 
   return (
     <mesh
