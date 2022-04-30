@@ -43,7 +43,7 @@ export const ThreeWorld = () => {
         rotation={[Math.PI / 2, 0, 0]}
       />
       <OrbitControls />
-      <ImagePlane corners={cornersInit} opacity={0.1} />
+      {/* <ImagePlane corners={cornersInit} opacity={0.1} /> */}
       <ImagePlane corners={corners} opacity={0.5} />
       <ImagePlane corners={[proj[0], proj[1], proj[2], proj[3]]} opacity={1} />
 
