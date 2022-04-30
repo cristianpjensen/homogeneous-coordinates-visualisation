@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Draggable from "react-draggable";
+import LineTo from "react-lineto";
 
 import img from "../assets/colortrui.png";
 
@@ -38,18 +39,49 @@ export const Controls = () => {
           position: "relative",
         }}
       >
-        <img src={img} onLoad={onLoad} style={{ width: 200 }} alt="colortrui" />
+        <img
+          src={img}
+          onLoad={onLoad}
+          style={{ width: 200, pointerEvents: "none", userSelect: "none" }}
+          onDragStart={() => false}
+          draggable={false}
+          alt="colortrui"
+        />
 
         <div style={{ position: "absolute", top: -8, left: -8 }}>
-          {points.map((p, index) => (
-            <Point
-              key={index}
-              setPoints={setPoints}
-              index={index}
-              width={width}
-              height={height}
-            />
-          ))}
+          <Point
+            className="A"
+            setPoints={setPoints}
+            index={0}
+            width={width}
+            height={height}
+          />
+          <Point
+            className="B"
+            setPoints={setPoints}
+            index={1}
+            width={width}
+            height={height}
+          />
+          <Point
+            className="C"
+            setPoints={setPoints}
+            index={2}
+            width={width}
+            height={height}
+          />
+          <Point
+            className="D"
+            setPoints={setPoints}
+            index={3}
+            width={width}
+            height={height}
+          />
+
+          <LineTo from="D" to="C" borderColor="white" zIndex={0} />
+          <LineTo from="C" to="A" borderColor="white" zIndex={0} />
+          <LineTo from="A" to="B" borderColor="white" zIndex={0} />
+          <LineTo from="B" to="D" borderColor="white" zIndex={0} />
         </div>
       </div>
     </div>
@@ -57,13 +89,14 @@ export const Controls = () => {
 };
 
 interface PointProps {
+  className: string;
   setPoints: React.Dispatch<React.SetStateAction<[Coord, Coord, Coord, Coord]>>;
   index: number;
   width: number;
   height: number;
 }
 
-const Point = ({ setPoints, index, width, height }: PointProps) => {
+const Point = ({ className, setPoints, index, width, height }: PointProps) => {
   const setPoint = (x: number, y: number) => {
     setPoints((points) => {
       const p = [...points];
@@ -73,7 +106,7 @@ const Point = ({ setPoints, index, width, height }: PointProps) => {
     });
   };
 
-  const onStop = (_: unknown, { x, y }: { x: number; y: number }) => {
+  const onDrag = (_: unknown, { x, y }: { x: number; y: number }) => {
     if (index === 0 || index === 2) {
       x += width;
     }
@@ -82,7 +115,6 @@ const Point = ({ setPoints, index, width, height }: PointProps) => {
       y += height;
     }
 
-    console.log(x, y);
     setPoint(x / width, y / height);
   };
 
@@ -98,9 +130,11 @@ const Point = ({ setPoints, index, width, height }: PointProps) => {
         top: index === 2 || index === 3 ? 0 : -height,
         bottom: index === 2 || index === 3 ? height : 0,
       }}
-      onStop={onStop}
+      onDrag={onDrag}
+      onStop={onDrag}
     >
       <div
+        className={className}
         style={{
           width: 16,
           height: 16,
@@ -108,6 +142,7 @@ const Point = ({ setPoints, index, width, height }: PointProps) => {
           borderRadius: "50%",
           opacity: 0.6,
           position: "absolute",
+          zIndex: 1,
         }}
       />
     </Draggable>
