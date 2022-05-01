@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import LineTo from "react-lineto";
 
-import img from "../assets/colortrui.png";
+import img from "../assets/images/colortrui.png";
 import { useStore } from "../store";
 
 type Coord = [number, number];
@@ -123,7 +123,7 @@ export const Controls = () => {
             borderWidth: 2,
             borderRadius: 16,
             borderStyle: "solid",
-            transition: "0.2s",
+            userSelect: "none",
             marginTop: 8,
             opacity: showHomogeneous ? 1 : 0.4,
           }}

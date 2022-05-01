@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import * as THREE from "three";
 import { useLoader } from "@react-three/fiber";
 
-import img from "../../assets/colortrui.png";
+import img from "../../assets/images/colortrui.png";
 
 interface ImagePlaneProps {
   // Corners of the image in three-dimensional space. The corners are in the

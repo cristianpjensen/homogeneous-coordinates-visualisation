@@ -1,8 +1,30 @@
+@font-face {
+  font-family: "Katex";
+  src: url(./assets/fonts/katex-regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Katex";
+  src: url(./assets/fonts/katex-bold.ttf) format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Katex";
+  src: url(./assets/fonts/katex-italic.ttf) format("truetype");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Katex";
+  src: url(./assets/fonts/katex-bolditalic.ttf) format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Katex", serif;
   color: white;
   background-color: black;
   overflow: hidden;
@@ -23,9 +45,5 @@ button {
   all: unset;
   cursor: pointer;
   transition: 0.2s;
-  font-size: 1.2rem;
-}
-
-button:hover {
-  opacity: 0.5;
+  font-size: 1.4rem;
 }
