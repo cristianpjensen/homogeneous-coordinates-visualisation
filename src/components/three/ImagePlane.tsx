@@ -14,8 +14,6 @@ interface ImagePlaneProps {
 export const ImagePlane = ({ corners, opacity }: ImagePlaneProps) => {
   const planeGeometry = new THREE.PlaneBufferGeometry().setFromPoints(corners);
   const texture = useLoader(THREE.TextureLoader, img);
-  texture.center = new THREE.Vector2(0.5, 0.5);
-  texture.rotation = Math.PI;
 
   return (
     <Suspense fallback={null}>

@@ -7,10 +7,10 @@ type Corners = [THREE.Vector3, THREE.Vector3, THREE.Vector3, THREE.Vector3];
 const SIZE = 400;
 
 export const cornersInit: Corners = [
-  new THREE.Vector3(SIZE, SIZE, 1),
+  new THREE.Vector3(0, 0, 1),
   new THREE.Vector3(0, SIZE, 1),
   new THREE.Vector3(SIZE, 0, 1),
-  new THREE.Vector3(0, 0, 1),
+  new THREE.Vector3(SIZE, SIZE, 1),
 ];
 
 interface Store {
@@ -62,7 +62,7 @@ export const useStore = create<Store>((set, get) => ({
 
     const P = new THREE.Matrix3();
     P.set(p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8]);
-    P.multiplyScalar(-5 / 2.887);
+    P.multiplyScalar(5 / 2.887);
 
     const c = cornersInit.map((corner) => {
       const corner_ = corner.clone();

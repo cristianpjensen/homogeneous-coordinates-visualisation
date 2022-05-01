@@ -29,12 +29,7 @@ export const ThreeWorld = () => {
     return [corner, proj[i]];
   });
 
-  const projectionOutline = [
-    [proj[0], proj[2]],
-    [proj[2], proj[3]],
-    [proj[3], proj[1]],
-    [proj[1], proj[0]],
-  ];
+  const projectionOutline = [proj[0], proj[2], proj[3], proj[1], proj[0]];
 
   return (
     <Canvas
@@ -76,9 +71,7 @@ export const ThreeWorld = () => {
           />
         );
       })}
-      {projectionOutline.map((line, i) => {
-        return <Line key={i} points={line} color="white" />;
-      })}
+      <Line points={projectionOutline} color="white" />
     </Canvas>
   );
 };
